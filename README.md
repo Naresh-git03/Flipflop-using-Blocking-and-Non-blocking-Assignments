@@ -40,10 +40,155 @@ T FF
 
 
 RTL Code:
+D Flip Flop
+
+  module dff (clk, rst,d, q); 
+  input clk, rst,d;
+  output reg q;
+         always @(posedge clk) begin
+            if (rst)
+                q <= 1'b0;
+              else
+                   q <= d;
+      end
+   endmodule
+
+
+SR Flip Flop
+
+  module sr_ff (input clk, input S, input R,output reg Q); 
+  always @(posedge clk) 
+  begin
+  case ({S,R})
+  2'b00: Q <= Q;
+  2'b01: Q <= 0;
+   2'b10: Q <= 1;
+  2'b11: Q <= 1'bx;
+ endcase
+ end
+endmodule
+
+JK Flip Flop
+module jk_ff(input clk,J,K, output reg Q);
+always @(posedge clk) 
+begin
+case({J,K})
+2'b00: Q<=Q;
+2'b01: 0<=0;
+2'b10: Q<=1;
+2'b11: Q<=~Q;
+endcase
+end
+endmodule
+
+T FLIP FLOP
+module t_ff(clk, rst, Tout, T);
+input clk, rst, T;
+output reg Tout;
+always@ (posedge clk)
+begin
+if(rst)
+  Tout=1'b0;
+else if(T) 
+  Tout = ~Tout;
+else
+Tout = Tout
+end
+endmodule
 
 TestBench:
 
+D Flip flop
+
+module dff_tb;
+reg clk_t, rst_t, d_t;
+wire q_t;
+dff dut (.clk(clk_t),.rst(rst_t),.d(d_t),.q(q_t) );
+initial begin
+clk_t = 1'b0;
+rst_t = 1'b1;
+d_t = 1'b0;
+#100 rst t = 1'b0;
+#100 d t = 1'b1;
+#100 d t = 1'b0;
+#100 d_t = 1'b1;
+end
+always #10 clk t = ~clk t;
+endmodule
+
+SR Flip Flop 
+
+module sr_ff_tb;
+reg clk, S, R;
+wire Q;
+sr_ff uut (.clk(clk),.S(S),.R(R),.Q(Q));
+initial begin
+clk = 0;
+forever #10 clk = ~clk;
+end
+initial begin
+S = 0; R = 0;
+#100 S = 1; R = 0;
+#100 S = 0; R = 0;
+#100 S = 0; R = 1;
+#100 S = 1; R = 1;
+#100 S = 0; R = 0;
+end
+endmodule
+
+JK Flip Flop 
+
+module tb_jk_ff;
+reg clk;
+reg J, K;
+wire Q;
+jk_ff uut (.clk(clk),.J(J),.K(K),.Q(Q));
+initial begin
+clk=0;
+forever #20 clk=~clk;
+end
+initial begin
+J = 0; K = 0;
+#100 J=0; K=0;
+#100 J=0; K=1;
+#100 J=1; K=0;
+#100 J=1; K=1;
+#100 J=0; K=1;
+#100 J=1; K=0;
+#100 J=1; K=1;
+end
+endmodule
+
+T Flip Flop
+
+module t_ff_tb;
+reg clk, rst, T;
+wire Tout;
+t_ff uut (.clk(clk),.rst(rst),.T(T),.Tout(Tout));
+initial begin
+clk = 0;
+forever #10 clk = ~clk;
+end
+initial begin
+rst = 1; T = 0;
+#20 rst = 0;
+#20 T = 1;
+#20 T = 0;
+#20 T = 1;
+#20 T = 1;
+#20 T = 0;
+end
+endmodule
 Output waveform:
+
+D Flip Flop
+|![WhatsApp Image 2025-09-16 at 21 11 38_f8996400](https://github.com/user-attachments/assets/ccb83a3c-9320-46c4-a3e2-5d800a292902)|
+
+SR Flip Flop
+|![WhatsApp Image 2025-09-16 at 21 13 00_5be1b69b](https://github.com/user-attachments/assets/cc3205df-fc9f-4f9c-8a8b-bff834dde41e)|
+
+JK Flip Flop
+|![WhatsApp Image 2025-09-16 at 21 13 25_0b864ca5](https://github.com/user-attachments/assets/6d51b316-9d2b-488f-ac55-adb6150f2a42)|
 
 Conclusion:
 
