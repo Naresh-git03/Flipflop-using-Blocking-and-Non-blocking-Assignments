@@ -41,7 +41,7 @@ T FF
 
 RTL Code:
 D Flip Flop
-
+```
   module dff (clk, rst,d, q); 
   input clk, rst,d;
   output reg q;
@@ -52,10 +52,9 @@ D Flip Flop
                    q <= d;
       end
    endmodule
-
-
+```
 SR Flip Flop
-
+```
   module sr_ff (input clk, input S, input R,output reg Q); 
   always @(posedge clk) 
   begin
@@ -80,8 +79,9 @@ case({J,K})
 endcase
 end
 endmodule
-
+```
 T FLIP FLOP
+```
 module t_ff(clk, rst, Tout, T);
 input clk, rst, T;
 output reg Tout;
@@ -95,9 +95,9 @@ else
 Tout = Tout
 end
 endmodule
-
+```
 TestBench:
-
+```
 D Flip flop
 
 module dff_tb;
@@ -115,9 +115,9 @@ d_t = 1'b0;
 end
 always #10 clk t = ~clk t;
 endmodule
-
+```
 SR Flip Flop 
-
+```
 module sr_ff_tb;
 reg clk, S, R;
 wire Q;
@@ -135,9 +135,9 @@ S = 0; R = 0;
 #100 S = 0; R = 0;
 end
 endmodule
-
+```
 JK Flip Flop 
-
+```
 module tb_jk_ff;
 reg clk;
 reg J, K;
@@ -158,9 +158,9 @@ J = 0; K = 0;
 #100 J=1; K=1;
 end
 endmodule
-
+```
 T Flip Flop
-
+```
 module t_ff_tb;
 reg clk, rst, T;
 wire Tout;
@@ -179,17 +179,23 @@ rst = 1; T = 0;
 #20 T = 0;
 end
 endmodule
+```
 Output waveform:
 
-D Flip Flop
-|![WhatsApp Image 2025-09-16 at 21 11 38_f8996400](https://github.com/user-attachments/assets/ccb83a3c-9320-46c4-a3e2-5d800a292902)|
+D Flip Flop//
 
-SR Flip Flop
-|![WhatsApp Image 2025-09-16 at 21 13 00_5be1b69b](https://github.com/user-attachments/assets/cc3205df-fc9f-4f9c-8a8b-bff834dde41e)|
+![WhatsApp Image 2025-09-16 at 21 11 38_f8996400](https://github.com/user-attachments/assets/ccb83a3c-9320-46c4-a3e2-5d800a292902)
 
-JK Flip Flop
-|![WhatsApp Image 2025-09-16 at 21 13 25_0b864ca5](https://github.com/user-attachments/assets/6d51b316-9d2b-488f-ac55-adb6150f2a42)|
+SR Flip Flop//
+
+![WhatsApp Image 2025-09-16 at 21 13 00_5be1b69b](https://github.com/user-attachments/assets/cc3205df-fc9f-4f9c-8a8b-bff834dde41e)
+
+JK Flip Flop//
+
+![WhatsApp Image 2025-09-16 at 21 13 25_0b864ca5](https://github.com/user-attachments/assets/6d51b316-9d2b-488f-ac55-adb6150f2a42)
 
 Conclusion:
+
+This project demonstrates flip-flop design using both blocking (=) and non-blocking (<=) assignments in Verilog. While blocking assignments are sequential and can lead to race conditions in clocked logic, non-blocking assignments correctly model parallel hardware behavior. Hence, non-blocking assignments are recommended for reliable flip-flop and synchronous circuit design.
 
 
